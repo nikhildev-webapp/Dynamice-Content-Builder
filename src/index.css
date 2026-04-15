@@ -21,6 +21,7 @@
   --text-secondary: #64748b;
   --text-tertiary: #94a3b8;
   --text-inverse: #ffffff;
+  --palette-text: #ffffff;
   
   /* Light Mode Borders */
   --border-primary: #e2e8f0;
@@ -44,6 +45,7 @@
   --text-secondary: #cbd5e1;
   --text-tertiary: #94a3b8;
   --text-inverse: #0f172a;
+  --palette-text: #ffffff;
   
   --border-primary: #334155;
   --border-secondary: #475569;

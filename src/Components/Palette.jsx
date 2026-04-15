@@ -55,7 +55,7 @@ export default function Palette({ onAddBlock }) {
       <button className="quick-add-btn" onClick={() => onAddBlock('text')}>
         + Quick Add Text
       </button>
-      <div style={{ fontSize: '0.8em', color: 'rgba(255,255,255,0.7)', marginTop: '12px', textAlign: 'center' }}>
+      <div className="palette-tip">
         <p>💡 Tip: Drag blocks to canvas to add custom types</p>
       </div>
     </div>
