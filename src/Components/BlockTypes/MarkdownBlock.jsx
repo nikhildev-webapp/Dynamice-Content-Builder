@@ -1,10 +1,29 @@
 // Markdown Block Component
 import { marked } from 'marked';
 
+// Simple recursive sanitizer for common XSS vectors
+const sanitizeHtml = (html) => {
+  if (typeof html !== 'string') return '';
+  
+  // Remove script tags and their content
+  let sanitized = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+  
+  // Remove event handlers (onclick, onerror, etc.)
+  sanitized = sanitized.replace(/\s*on\w+\s*=\s*["'][^"']*["']/gi, '');
+  sanitized = sanitized.replace(/\s*on\w+\s*=\s*[^\s>]*/gi, '');
+  
+  // Remove dangerous protocols (javascript:, data:, vbscript:)
+  sanitized = sanitized.replace(/href\s*=\s*["']?\s*(?:javascript|data|vbscript):[^"'>]*/gi, 'href="#"');
+  
+  return sanitized;
+};
+
 export default function MarkdownBlock({ data, onUpdate, isEditing }) {
   const parseMarkdown = (markdown) => {
     try {
-      return marked(markdown || '');
+      const parsed = marked(markdown || '');
+      const sanitized = sanitizeHtml(parsed);
+      return sanitized;
     } catch (error) {
       console.error('Markdown parsing error:', error);
       return '<p>Invalid markdown</p>';

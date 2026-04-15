@@ -277,15 +277,13 @@ function App() {
               <button className="action-btn export-btn" onClick={handleExport} title="Export as JSON">
                 ⬇️ Export
               </button>
-              <label className="action-btn import-btn" title="Import from JSON">
+              <button
+                className="action-btn import-btn"
+                onClick={() => fileInputRef.current?.click()}
+                title="Import from JSON"
+              >
                 ⬆️ Import
-                <input
-                  type="file"
-                  accept=".json"
-                  onChange={handleImport}
-                  style={{ display: 'none' }}
-                />
-              </label>
+              </button>
               <button
                 className="action-btn clear-btn"
                 onClick={handleClearAll}

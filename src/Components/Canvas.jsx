@@ -111,7 +111,6 @@ export default function Canvas({
                   onUpdate={(updatedData) => onUpdateBlock(block.id, updatedData)}
                   onDelete={() => onDeleteBlock(block.id)}
                   index={index}
-                  total={blocks.length}
                 />
               </div>
             ))}

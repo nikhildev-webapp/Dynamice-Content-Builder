@@ -11,8 +11,7 @@ export default function Block({
   onSelect,
   onUpdate,
   onDelete,
-  index,
-  total
+  index
 }) {
   const getBlockTitle = () => {
     const titles = {
