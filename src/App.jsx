@@ -12,6 +12,11 @@ function App() {
   const [showPalette, setShowPalette] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem('theme-mode');
+    if (saved) return saved === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
   const fileInputRef = useRef(null);
 
   // Generate a unique ID using timestamp and random
@@ -26,6 +31,16 @@ function App() {
       setBlocks(savedBlocks);
     }
   }, []);
+
+  // Apply dark mode to document
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+    localStorage.setItem('theme-mode', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
   // Save blocks to local storage whenever they change
   useEffect(() => {
@@ -173,6 +188,13 @@ function App() {
           <p>Drag and drop to create your personalized content page</p>
         </div>
         <div className="header-actions">
+          <button
+            className="theme-toggle-btn"
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            title={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {isDarkMode ? '☀️' : '🌙'}
+          </button>
           {isMobile ? (
             <>
               <button
